@@ -1,0 +1,312 @@
+{% extends "base.html" %}
+
+{% block title %}Calculadora Avançada{% endblock %}
+
+{% block content %}
+<div class="fixed top-4 right-4 z-10">
+    <a href="{% url 'logout' %}" class="bg-red-500 hover:bg-red-600 text-branco-total px-4 py-2 rounded-lg transition-colors duration-200 flex items-center gap-2 text-sm font-semibold shadow-lg">
+        <i class="fas fa-sign-out-alt"></i>
+        Sair
+    </a>
+</div>
+
+<div class="min-h-screen flex flex-col items-center justify-center p-6">
+    <div class="text-center mb-8">
+        <h1 class="text-branco-total text-3xl font-bold mb-2">Calculadora Avançada</h1>
+        <p class="text-cinza-texto text-base">Calculadora com histórico de operações</p>
+    </div>
+
+    <div class="flex justify-center items-start gap-6 w-full max-w-6xl">
+        <div class="w-96">
+            <div class="bg-fundo-elemento-escuro rounded-lg p-6 border border-borda-detalhe-roxo shadow-2xl">
+                <div class="mb-6">
+                    <div class="bg-fundo-elemento-escuro border border-borda-detalhe-roxo rounded-lg p-6 text-right overflow-hidden">
+                        <div class="text-branco-total font-mono break-all" id="display" style="font-size: 2.25rem; line-height: 2.5rem; min-height: 2.5rem; word-wrap: break-word;">0</div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-4 gap-3">
+                    <button class="bg-red-500 hover:bg-red-600 text-branco-total font-semibold py-4 px-4 rounded-lg transition-colors duration-200 text-lg" data-value="C">
+                        C
+                    </button>
+                    <button class="bg-roxo-principal hover:bg-purple-700 text-branco-total font-semibold py-4 px-4 rounded-lg transition-colors duration-200 text-lg" data-value="±">
+                        ±
+                    </button>
+                    <button class="bg-roxo-principal hover:bg-purple-700 text-branco-total font-semibold py-4 px-4 rounded-lg transition-colors duration-200 text-lg" data-value="%">
+                        %
+                    </button>
+                    <button class="bg-roxo-principal hover:bg-purple-700 text-branco-total font-semibold py-4 px-4 rounded-lg transition-colors duration-200 text-lg" data-value="/">
+                        ÷
+                    </button>
+
+                    <button class="bg-fundo-elemento-escuro hover:bg-gray-600 text-branco-total font-semibold py-4 px-4 rounded-lg border border-gray-600 transition-colors duration-200 text-lg" data-value="7">
+                        7
+                    </button>
+                    <button class="bg-fundo-elemento-escuro hover:bg-gray-600 text-branco-total font-semibold py-4 px-4 rounded-lg border border-gray-600 transition-colors duration-200 text-lg" data-value="8">
+                        8
+                    </button>
+                    <button class="bg-fundo-elemento-escuro hover:bg-gray-600 text-branco-total font-semibold py-4 px-4 rounded-lg border border-gray-600 transition-colors duration-200 text-lg" data-value="9">
+                        9
+                    </button>
+                    <button class="bg-roxo-principal hover:bg-purple-700 text-branco-total font-semibold py-4 px-4 rounded-lg transition-colors duration-200 text-lg" data-value="*">
+                        ×
+                    </button>
+
+                    <button class="bg-fundo-elemento-escuro hover:bg-gray-600 text-branco-total font-semibold py-4 px-4 rounded-lg border border-gray-600 transition-colors duration-200 text-lg" data-value="4">
+                        4
+                    </button>
+                    <button class="bg-fundo-elemento-escuro hover:bg-gray-600 text-branco-total font-semibold py-4 px-4 rounded-lg border border-gray-600 transition-colors duration-200 text-lg" data-value="5">
+                        5
+                    </button>
+                    <button class="bg-fundo-elemento-escuro hover:bg-gray-600 text-branco-total font-semibold py-4 px-4 rounded-lg border border-gray-600 transition-colors duration-200 text-lg" data-value="6">
+                        6
+                    </button>
+                    <button class="bg-roxo-principal hover:bg-purple-700 text-branco-total font-semibold py-4 px-4 rounded-lg transition-colors duration-200 text-lg" data-value="-">
+                        -
+                    </button>
+
+                    <button class="bg-fundo-elemento-escuro hover:bg-gray-600 text-branco-total font-semibold py-4 px-4 rounded-lg border border-gray-600 transition-colors duration-200 text-lg" data-value="1">
+                        1
+                    </button>
+                    <button class="bg-fundo-elemento-escuro hover:bg-gray-600 text-branco-total font-semibold py-4 px-4 rounded-lg border border-gray-600 transition-colors duration-200 text-lg" data-value="2">
+                        2
+                    </button>
+                    <button class="bg-fundo-elemento-escuro hover:bg-gray-600 text-branco-total font-semibold py-4 px-4 rounded-lg border border-gray-600 transition-colors duration-200 text-lg" data-value="3">
+                        3
+                    </button>
+                    <button class="bg-roxo-principal hover:bg-purple-700 text-branco-total font-semibold py-4 px-4 rounded-lg transition-colors duration-200 text-lg" data-value="+">
+                        +
+                    </button>
+
+                    <button class="bg-fundo-elemento-escuro hover:bg-gray-600 text-branco-total font-semibold py-4 px-4 rounded-lg border border-gray-600 transition-colors duration-200 col-span-2 text-lg" data-value="0">
+                        0
+                    </button>
+                    <button class="bg-fundo-elemento-escuro hover:bg-gray-600 text-branco-total font-semibold py-4 px-4 rounded-lg border border-gray-600 transition-colors duration-200 text-lg" data-value=".">
+                        .
+                    </button>
+                    <button class="bg-roxo-principal hover:bg-purple-700 text-branco-total font-semibold rounded-lg transition-colors duration-200 text-lg" data-value="=">
+                        =
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="w-80">
+            <div class="bg-fundo-elemento-escuro rounded-lg p-6 border border-borda-detalhe-roxo shadow-2xl h-fit">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-branco-total text-xl font-semibold flex items-center gap-2">
+                        <i class="fas fa-history"></i>
+                        Histórico
+                    </h2>
+                    <button class="text-cinza-texto hover:text-branco-total transition-colors duration-200 text-lg" id="clear-history-btn">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+
+                <div class="space-y-4" id="history-list">
+                </div>
+
+                <div class="text-center text-cinza-texto text-sm mt-6 hidden" id="historico-vazio">
+                    <i class="fas fa-calculator text-2xl mb-2 opacity-50"></i>
+                    <p>Nenhuma operação realizada ainda</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const display = document.getElementById('display');
+        const buttons = document.querySelectorAll('.grid button');
+        const historyList = document.getElementById('history-list');
+        const historicoVazio = document.getElementById('historico-vazio');
+        const clearHistoryBtn = document.getElementById('clear-history-btn');
+
+        let currentExpression = '0';
+        let resultDisplayed = false;
+
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        function updateDisplay() {
+            display.textContent = currentExpression;
+            
+            const textLength = currentExpression.length;
+            let fontSize, lineHeight;
+            
+            if (textLength <= 10) {
+                fontSize = '2.25rem';
+                lineHeight = '2.5rem';
+            } else if (textLength <= 15) {
+                fontSize = '1.875rem';
+                lineHeight = '2.25rem';
+            } else if (textLength <= 20) {
+                fontSize = '1.5rem';
+                lineHeight = '2rem';
+            } else if (textLength <= 25) {
+                fontSize = '1.25rem';
+                lineHeight = '1.75rem';
+            } else {
+                fontSize = '1rem';
+                lineHeight = '1.5rem';
+            }
+            
+            display.style.fontSize = fontSize;
+            display.style.lineHeight = lineHeight;
+        }
+
+        function updateHistory(historyData) {
+            historyList.innerHTML = '';
+            if (historyData.length === 0) {
+                historicoVazio.classList.remove('hidden');
+            } else {
+                historicoVazio.classList.add('hidden');
+                historyData.forEach(item => {
+                    const historyItem = document.createElement('div');
+                    historyItem.className = 'bg-input-bg rounded-lg p-4 border border-gray-600 shadow-md'; 
+                    historyItem.innerHTML = `
+                        <div class="text-cinza-texto text-sm mb-1">${item.parametros}</div>
+                        <div class="text-branco-total font-mono text-lg">= ${item.resultado}</div>
+                        <div class="text-cinza-texto text-xs mt-1">${item.dt_inclusao}</div>
+                    `;
+                    historyList.appendChild(historyItem);
+                });
+            }
+        }
+
+        const initialHistoryData = {{ initial_history|safe }};
+        if (initialHistoryData && initialHistoryData.length > 0) {
+            updateHistory(initialHistoryData);
+        } else {
+            historicoVazio.classList.remove('hidden');
+        }
+
+        buttons.forEach(button => {
+            button.addEventListener('click', async function() {
+                const value = this.dataset.value;
+
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                }, 100);
+
+                if (value === 'C') {
+                    currentExpression = '0';
+                    resultDisplayed = false;
+                } else if (value === '=') {
+                    const csrfToken = getCookie('csrftoken');
+                    try {
+                        const response = await fetch('/calculadora/process_operation/', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRFToken': csrfToken
+                            },
+                            body: JSON.stringify({ expression: currentExpression })
+                        });
+
+                        const data = await response.json();
+
+                        if (response.ok) {
+                            currentExpression = data.result.toString();
+                            resultDisplayed = true;
+                            updateHistory(data.history);
+                        } else {
+                            currentExpression = 'Erro';
+                            resultDisplayed = true;
+                            console.error('Error from backend:', data.error);
+                        }
+                    } catch (e) {
+                        currentExpression = 'Erro';
+                        resultDisplayed = true;
+                        console.error('Network or parsing error:', e);
+                    }
+                } else if (['+', '-', '*', '/'].includes(value)) {
+                    const lastChar = currentExpression.slice(-1);
+                    if (['+', '-', '*', '/'].includes(lastChar)) {
+                        currentExpression = currentExpression.slice(0, -1) + value;
+                    } else if (resultDisplayed) {
+                        currentExpression = currentExpression + value;
+                        resultDisplayed = false;
+                    } else {
+                        currentExpression += value;
+                    }
+                } else if (value === '%') {
+                    const numRegex = /(\d+\.?\d*)$/;
+                    const match = currentExpression.match(numRegex);
+                    if (match) {
+                        currentExpression += value;
+                    } else if (resultDisplayed) {
+                        currentExpression = currentExpression + value;
+                        resultDisplayed = false;
+                    }
+                }
+                else if (value === '±') {
+                    const numRegex = /(-?\d+\.?\d*)$/;
+                    const match = currentExpression.match(numRegex);
+                    if (match) {
+                        const lastNum = parseFloat(match[1]);
+                        const newNum = (-lastNum).toString();
+                        currentExpression = currentExpression.slice(0, match.index) + newNum;
+                    } else if (resultDisplayed && !isNaN(parseFloat(currentExpression))) {
+                        currentExpression = (-parseFloat(currentExpression)).toString();
+                    }
+                } else { // Números e ponto
+                    if (currentExpression === '0' || resultDisplayed) {
+                        currentExpression = value;
+                        resultDisplayed = false;
+                    } else {
+                        currentExpression += value;
+                    }
+                }
+                updateDisplay();
+            });
+        });
+
+        // Event listener for clearing history (trash icon)
+        clearHistoryBtn.addEventListener('click', async function() {
+            const csrfToken = getCookie('csrftoken');
+            
+            try {
+                const response = await fetch('/calculadora/process_operation/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrfToken
+                    },
+                    body: JSON.stringify({ action: 'clear_history' })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    // Limpa o histórico na interface
+                    historyList.innerHTML = '';
+                    historicoVazio.classList.remove('hidden');
+                    console.log('Histórico limpo com sucesso');
+                } else {
+                    console.error('Erro ao limpar histórico:', data.error);
+                }
+            } catch (e) {
+                console.error('Erro na requisição de limpeza:', e);
+            }
+        });
+
+        updateDisplay();
+    });
+</script>
+{% endblock %}
+

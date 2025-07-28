@@ -1,0 +1,58 @@
+{% extends 'base.html' %} 
+
+{% block title %}Login - Calculadora Avançada{% endblock %} 
+
+{% block content %} 
+    <div class="bg-fundo-elemento-escuro p-8 rounded-lg shadow-xl w-full max-w-md border border-borda-detalhe-roxo">
+        <h2 class="text-3xl font-bold text-center text-branco-total mb-6">Calculadora Avançada</h2>
+
+        <form method="post" action="{% url 'login' %}" class="space-y-6">
+            {% csrf_token %} 
+
+            <div>
+                <label for="id_username" class="block text-cinza-texto text-sm font-bold mb-2">Email ou Usuário:</label>
+                <input type="text" id="id_username" name="username" required
+                       class="shadow appearance-none border rounded w-full py-3 px-4 text-branco-total leading-tight focus:outline-none focus:shadow-outline bg-input-bg border-gray-600 focus:border-roxo-principal"
+                       placeholder="seu@email.com">
+                {% if form.username.errors %}
+                    <p class="text-red-500 text-xs italic mt-2">{{ form.username.errors }}</p>
+                {% endif %}
+            </div>
+
+            <div>
+                <label for="id_password" class="block text-cinza-texto text-sm font-bold mb-2">Senha:</label>
+                <input type="password" id="id_password" name="password" required
+                       class="shadow appearance-none border rounded w-full py-3 px-4 text-branco-total leading-tight focus:outline-none focus:shadow-outline bg-input-bg border-gray-600 focus:border-roxo-principal"
+                       placeholder="Sua senha">
+                {% if form.password.errors %}
+                    <p class="text-red-500 text-xs italic mt-2">{{ form.password.errors }}</p>
+                {% endif %}
+            </div>
+
+            {% if form.non_field_errors %}
+                <div class="text-red-500 text-sm mb-4">
+                    {% for error in form.non_field_errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <div class="flex flex-col gap-4 mt-6">
+                <button type="submit"
+                        class="bg-roxo-principal hover:bg-purple-700 text-branco-total font-bold py-3 px-6 rounded focus:outline-none focus:shadow-outline transition duration-300 ease-in-out w-full">
+                    Entrar
+                </button>
+                <a href="{% url 'signup' %}" 
+                   class="bg-gray-700 hover:bg-gray-600 text-branco-total font-bold py-3 px-6 rounded focus:outline-none focus:shadow-outline transition duration-300 ease-in-out w-full text-center block">
+                    Cadastrar
+                </a>
+            </div>
+
+            <div class="text-center mt-4">
+                <a class="inline-block align-baseline font-bold text-sm text-roxo-principal hover:text-purple-400" href="{% url 'password_reset' %}"> {# Mantido, pois é do Django Auth #}
+                    Esqueci minha senha
+                </a>
+            </div>
+        </form>
+    </div>
+{% endblock content %}

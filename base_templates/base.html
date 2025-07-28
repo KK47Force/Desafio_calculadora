@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Calculadora Avançada{% endblock %}</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'fundo-elemento-escuro': '#2A2A3E',
+                        'borda-detalhe-roxo': '#6B21A8',
+                        'roxo-principal': '#9333ea',
+                        'cinza-texto': '#E5E7EB',
+                        'branco-total': '#FFFFFF',
+                        'input-bg': '#374151',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="bg-gradient-to-br from-[#100318] to-purple-950 min-h-screen flex items-center justify-center p-4 font-sans">
+
+    
+    {% if messages %}
+        <div class="fixed top-0 inset-x-0 z-50 p-4">
+            <ul class="flex flex-col items-center">
+                {% for message in messages %}
+                    {% if message.level == 25 %}
+                        <li{% if message.tags %} class="p-3 mb-2 rounded shadow-md text-sm w-full max-w-md flex items-center justify-between {{ message.tags }} font-sans"{% endif %}>
+                            {{ message }}
+                            <button type="button" class="ml-2 text-lg leading-none cursor-pointer" onclick="this.parentElement.style.display='none';">&times;</button>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    {% block content %}
+    {% endblock content %}
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
